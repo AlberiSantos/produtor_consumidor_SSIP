@@ -30,3 +30,15 @@ func main() {
 		log.Fatal(err)
 	}
 }
+
+/*
+ROADMAP
+
+1. conectar com o banco de dados
+
+2. implementar a API
+- Adicionar todo
+- Remover todo
+- Ver todas as todos
+- Check em uma todo
+*/
