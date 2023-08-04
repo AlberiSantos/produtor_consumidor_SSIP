@@ -1,33 +1,19 @@
 package main
 
 import (
-	"src/dbConnect"
+	"log"
+	"net/http"
 )
 
 func main() {
-	dbConnect.DeleteTodo(1)
-	dbConnect.GetAllTodos()
-	/*http.HandleFunc("/hello", hello)
-	http.HandleFunc("/headers", headers)
+	//http.HandleFunc("/add", hello)
+	//http.HandleFunc("/delete", headers)
+	//http.HandleFunc("/check", headers)
+	//http.HandleFunc("/get-all", headers)
 
 	log.Println("Servidor iniciado na porta 8090")
-	err := http.ListenAndServe(":8090", nil)
+	err := http.ListenAndServeTLS(":8090", ".secrets/server.crt", ".secrets/server.key", nil)
 	if err != nil {
-		log.Fatal(err)
-	}*/
-}
-
-/*func hello(w http.ResponseWriter, req *http.Request) {
-	log.Println("Requisição recebida em /hello")
-	fmt.Fprintf(w, "hello\n")
-}
-
-func headers(w http.ResponseWriter, req *http.Request) {
-	log.Println("Requisição recebida em /headers")
-	for name, headers := range req.Header {
-		for _, h := range headers {
-			fmt.Fprintf(w, "%v: %v\n", name, h)
-		}
+		log.Fatalf("Failed to start server: %v", err)
 	}
 }
-*/
