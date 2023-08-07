@@ -1,19 +1,36 @@
 package main
 
 import (
+	"fmt"
+	"github.com/joho/godotenv"
 	"log"
+	"main/src/dbConnect"
+	"main/src/httpHandler"
 	"net/http"
+	"os"
+	"time"
 )
 
 func main() {
-	//http.HandleFunc("/add", hello)
-	//http.HandleFunc("/delete", headers)
-	//http.HandleFunc("/check", headers)
-	//http.HandleFunc("/get-all", headers)
+	loadEnv()
+	time.Sleep(time.Second * 5)
+	dbConnect.Init()
 
-	log.Println("Servidor iniciado na porta 8090")
-	err := http.ListenAndServeTLS(":8090", ".secrets/server.crt", ".secrets/server.key", nil)
+	http.HandleFunc("/add", httpHandler.AddNewTodo)
+	http.HandleFunc("/delete", httpHandler.DeleteTodo)
+	http.HandleFunc("/check", httpHandler.CheckTodo)
+	http.HandleFunc("/get-all", httpHandler.GetAllTodos)
+
+	err := http.ListenAndServeTLS(":"+os.Getenv("APP_PORT"), os.Getenv("APP_CERT_PATH"), os.Getenv("APP_KEY_PATH"), nil)
 	if err != nil {
 		log.Fatalf("Failed to start server: %v", err)
+	}
+}
+
+func loadEnv() {
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error loading .env file:", err)
+		return
 	}
 }
